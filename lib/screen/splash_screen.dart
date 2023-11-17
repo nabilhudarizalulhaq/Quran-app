@@ -1,7 +1,6 @@
 import 'package:al_quran/globals.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -9,7 +8,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundLight,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -20,18 +19,17 @@ class SplashScreen extends StatelessWidget {
               children: [
                 Text(
                   'Quran App',
-                  style: GoogleFonts.poppins(
-                      color: primary,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold),
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 28,
+                    fontWeight: bold,
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 Text(
                   'Learn Quran and \nRecite once everyday',
-                  style: GoogleFonts.poppins(
-                    color: text,
+                  style: greyTextStyle.copyWith(
                     fontSize: 18,
                   ),
                   textAlign: TextAlign.center,
@@ -48,8 +46,36 @@ class SplashScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           color: const Color(0xFF672CBC)),
-                      child: SvgPicture.asset('assets/svgs/splash.svg'),
+                      child: SvgPicture.asset(
+                        "assets/svgs/splashscreen.svg",
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
+                    Positioned(
+                      left: 0,
+                      bottom: -28,
+                      right: 0,
+                      child: Center(
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {},
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 16),
+                            decoration: BoxDecoration(
+                                color: orange,
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Text(
+                              'Get Started',
+                              style: whiteTextStyle.copyWith(
+                                fontSize: 18,
+                                fontWeight: semiBold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ],
