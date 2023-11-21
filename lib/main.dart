@@ -1,4 +1,5 @@
-import 'package:al_quran/screen/splash_screen.dart';
+import 'package:al_quran/screen/home_page.dart';
+import 'package:al_quran/screen/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,7 +20,17 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      // home: const SplashPage(),
+      routes: {
+        '/': (context) => const SplashPage(),
+        '/home': (context) => const HomePage(),
+        // '/surah':(context) => const SurahTabPage(),
+        // '/login': (context) => const SignInPage(),
+        // '/sign_up': (context) => const SignUpPage(),
+        // '/home': (context) => const HomePage(),
+        // '/profile': (context) => const ProfilePage(),
+        // '/setting': (context) => const SettingPage(),
+      },
     );
   }
 }

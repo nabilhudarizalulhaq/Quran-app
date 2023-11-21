@@ -2,13 +2,14 @@ import 'package:al_quran/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundLight,
+      // Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -58,7 +59,9 @@ class SplashScreen extends StatelessWidget {
                       child: Center(
                         child: GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/home');
+                          },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 16),
