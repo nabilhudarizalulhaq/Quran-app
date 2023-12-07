@@ -61,6 +61,7 @@ class Surah {
       };
 }
 
+// ignore: constant_identifier_names
 enum TempatTurun { MEKAH, MADINAH }
 
 final tempatTurunValues =

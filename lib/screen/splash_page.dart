@@ -8,8 +8,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundLight,
-      // Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -23,6 +22,7 @@ class SplashPage extends StatelessWidget {
                   style: primaryTextStyle.copyWith(
                     fontSize: 28,
                     fontWeight: bold,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 const SizedBox(
@@ -45,8 +45,9 @@ class SplashPage extends StatelessWidget {
                       height: 450,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: const Color(0xFF672CBC)),
+                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xFF672CBC),
+                      ),
                       child: SvgPicture.asset(
                         "assets/svgs/splashscreen.svg",
                         fit: BoxFit.scaleDown,
@@ -73,6 +74,7 @@ class SplashPage extends StatelessWidget {
                               style: whiteTextStyle.copyWith(
                                 fontSize: 18,
                                 fontWeight: semiBold,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                             ),
                           ),

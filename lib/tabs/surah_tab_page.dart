@@ -25,7 +25,9 @@ class SurahTabPage extends StatelessWidget {
         }
         return ListView.separated(
             itemBuilder: (context, index) => _surahItem(
-                context: context, surah: snapshot.data!.elementAt(index)),
+                  context: context,
+                  surah: snapshot.data!.elementAt(index),
+                ),
             separatorBuilder: (context, index) => Divider(
                   color:
                       const Color.fromARGB(255, 255, 255, 255).withOpacity(.35),
@@ -35,14 +37,20 @@ class SurahTabPage extends StatelessWidget {
     );
   }
 
-  Widget _surahItem({required Surah surah, required BuildContext context}) =>
+  Widget _surahItem({
+    required BuildContext context,
+    required Surah surah,
+  }) =>
       GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context).push(
+            MaterialPageRoute(
               builder: (context) => DetailScreen(
-                    noSurat: surah.nomor,
-                  )));
+                noSurat: surah.nomor,
+              ),
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -59,7 +67,8 @@ class SurahTabPage extends StatelessWidget {
                         "${surah.nomor}",
                         style: primaryTextStyle.copyWith(
                           fontSize: 14,
-                          fontWeight: medium,
+                          fontWeight: bold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
@@ -78,6 +87,7 @@ class SurahTabPage extends StatelessWidget {
                       style: primaryTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: bold,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     const SizedBox(
@@ -90,6 +100,7 @@ class SurahTabPage extends StatelessWidget {
                           style: greyTextStyle.copyWith(
                             fontSize: 16,
                             fontWeight: reguler,
+                            color: Theme.of(context).colorScheme.onSecondary,
                           ),
                         ),
                         const SizedBox(
@@ -99,8 +110,9 @@ class SurahTabPage extends StatelessWidget {
                           width: 4,
                           height: 4,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(2),
-                              color: grey),
+                            borderRadius: BorderRadius.circular(2),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                         const SizedBox(
                           width: 5,
@@ -110,6 +122,7 @@ class SurahTabPage extends StatelessWidget {
                           style: greyTextStyle.copyWith(
                             fontSize: 16,
                             fontWeight: medium,
+                            color: Theme.of(context).colorScheme.onSecondary,
                           ),
                         ),
                       ],
@@ -120,7 +133,10 @@ class SurahTabPage extends StatelessWidget {
               Text(
                 surah.nama,
                 style: GoogleFonts.amiri(
-                    color: primary, fontSize: 28, fontWeight: FontWeight.bold),
+                  color: primary,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

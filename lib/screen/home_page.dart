@@ -15,10 +15,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundLight,
-      // Theme.of(context).colorScheme.background,
-      appBar: appBar(),
-      bottomNavigationBar: bottomNavigationBar(),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: appBar(context: context),
+      bottomNavigationBar: bottomNavigationBar(context: context),
       body: DefaultTabController(
         length: 4,
         child: Padding(
@@ -28,12 +27,12 @@ class HomePage extends StatelessWidget {
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxScrolled) => [
               SliverToBoxAdapter(
-                child: _greeting(),
+                child: _greeting(context: context),
               ),
               SliverAppBar(
                 pinned: true,
                 elevation: 0,
-                backgroundColor: backgroundLight,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 automaticallyImplyLeading: false,
                 shape: Border(
                   bottom: BorderSide(
@@ -43,7 +42,7 @@ class HomePage extends StatelessWidget {
                 ),
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(0),
-                  child: tab(),
+                  child: tab(context: context),
                 ),
               ),
             ],
@@ -62,34 +61,35 @@ class HomePage extends StatelessWidget {
   }
 }
 
-TabBar tab() {
+TabBar tab({required BuildContext context}) {
   return TabBar(
     unselectedLabelColor: grey,
-    labelColor: grey,
+    labelColor: Theme.of(context).colorScheme.primary,
     indicatorColor: primary,
     indicatorWeight: 3,
     tabs: [
-      tabItem(label: "Surah"),
-      tabItem(label: "Para"),
-      tabItem(label: "Page"),
-      tabItem(label: "Hijb"),
+      tabItem(context: context, label: "Surah"),
+      tabItem(context: context, label: "Para"),
+      tabItem(context: context, label: "Page"),
+      tabItem(context: context, label: "Hijb"),
     ],
   );
 }
 
-Tab tabItem({required String label}) {
+Tab tabItem({required BuildContext context, required String label}) {
   return Tab(
     child: Text(
       label,
       style: GoogleFonts.poppins(
         fontSize: 16,
         fontWeight: FontWeight.w600,
+        color: Theme.of(context).colorScheme.onPrimary,
       ),
     ),
   );
 }
 
-Column _greeting() {
+Column _greeting({required BuildContext context}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -104,7 +104,11 @@ Column _greeting() {
       ),
       Text(
         'Nabil Huda Rizalul H.',
-        style: primaryTextStyle.copyWith(fontSize: 24, fontWeight: bold),
+        style: whiteTextStyle.copyWith(
+          fontSize: 24,
+          fontWeight: bold,
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
       const SizedBox(
         height: 24,

@@ -25,12 +25,17 @@ class DetailScreen extends StatelessWidget {
         builder: ((context, snapshot) {
           if (!snapshot.hasData) {
             return Scaffold(
-              backgroundColor: backgroundLight,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              body: const Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 24,
+                ),
+              ),
             );
           }
           Surah surah = snapshot.data!;
           return Scaffold(
-            backgroundColor: backgroundLight,
+            backgroundColor: Theme.of(context).colorScheme.background,
             appBar: _appBar(context: context, surah: surah),
             body: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -39,9 +44,13 @@ class DetailScreen extends StatelessWidget {
                 )
               ],
               body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 24,
+                ),
                 child: ListView.separated(
                   itemBuilder: (context, index) => _ayatItem(
+                      context: context,
                       ayat: surah.ayat!
                           .elementAt(index + (noSurat == 1 ? 1 : 0))),
                   itemCount: surah.jumlahAyat + (noSurat == 1 ? -1 : 0),
@@ -53,7 +62,8 @@ class DetailScreen extends StatelessWidget {
         }));
   }
 
-  Widget _ayatItem({required Ayat ayat}) => Padding(
+  Widget _ayatItem({required BuildContext context, required Ayat ayat}) =>
+      Padding(
         padding: const EdgeInsets.only(top: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -81,6 +91,7 @@ class DetailScreen extends StatelessWidget {
                       style: whiteTextStyle.copyWith(
                         fontSize: 16,
                         fontWeight: medium,
+                        // color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     )),
                   ),
@@ -112,7 +123,10 @@ class DetailScreen extends StatelessWidget {
             Text(
               ayat.ar,
               style: GoogleFonts.amiri(
-                  color: primary, fontWeight: FontWeight.bold, fontSize: 26),
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
               textAlign: TextAlign.right,
             ),
             const SizedBox(
@@ -120,9 +134,15 @@ class DetailScreen extends StatelessWidget {
             ),
             Text(
               ayat.idn,
+              // style: GoogleFonts.poppins(
+              //   fontSize: 16,
+              //   fontWeight: medium,
+              //   color: Theme.of(context).colorScheme.primary,
+              // ),
               style: primaryTextStyle.copyWith(
                 fontSize: 16,
                 fontWeight: medium,
+                color: grey,
               ),
             ),
           ],
@@ -131,124 +151,137 @@ class DetailScreen extends StatelessWidget {
 
   Widget _details({required Surah surah}) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Stack(children: [
-          Container(
-            height: 257,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [
-                      0,
-                      .6,
-                      1
-                    ],
-                    colors: [
-                      Color(0xFFDF98FA),
-                      Color(0xFFB070FD),
-                      Color(0xFF9055FF)
-                    ])),
-          ),
-          Positioned(
-              bottom: 0,
-              right: 0,
-              child: Opacity(
-                  opacity: .2,
-                  child: SvgPicture.asset(
-                    'assets/svgs/quran.svg',
-                    width: 324 - 55,
-                  ))),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(28),
-            child: Column(
-              children: [
-                Text(
-                  surah.namaLatin,
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 26,
-                    fontWeight: bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  surah.arti,
-                  style: whiteTextStyle.copyWith(
-                    fontSize: 16,
-                    fontWeight: bold,
-                  ),
-                ),
-                Divider(
-                  color: Colors.white.withOpacity(.35),
-                  thickness: 2,
-                  height: 32,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      surah.tempatTurun.name,
-                      style: whiteTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 4,
-                      height: 4,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(2),
-                          color: Colors.white),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      "${surah.jumlahAyat} Ayat",
-                      style: whiteTextStyle.copyWith(
-                          fontSize: 14, fontWeight: medium),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                SvgPicture.asset('assets/svgs/bismillah.svg')
-              ],
+        child: Stack(
+          children: [
+            Container(
+              height: 257,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [
+                        0,
+                        .6,
+                        1
+                      ],
+                      colors: [
+                        Color(0xFFDF98FA),
+                        Color(0xFFB070FD),
+                        Color(0xFF9055FF)
+                      ])),
             ),
-          )
-        ]),
+            Positioned(
+                bottom: 0,
+                right: 0,
+                child: Opacity(
+                    opacity: .2,
+                    child: SvgPicture.asset(
+                      'assets/svgs/quran.svg',
+                      width: 324 - 55,
+                    ))),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(28),
+              child: Column(
+                children: [
+                  Text(
+                    surah.namaLatin,
+                    style: whiteTextStyle.copyWith(
+                      fontSize: 26,
+                      fontWeight: bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    surah.arti,
+                    style: whiteTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: bold,
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.white.withOpacity(.35),
+                    thickness: 2,
+                    height: 32,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        surah.tempatTurun.name,
+                        style: whiteTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: 4,
+                        height: 4,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: Colors.white),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "${surah.jumlahAyat} Ayat",
+                        style: whiteTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: medium,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  SvgPicture.asset('assets/svgs/bismillah.svg')
+                ],
+              ),
+            ),
+          ],
+        ),
       );
 
   AppBar _appBar({required BuildContext context, required Surah surah}) =>
       AppBar(
-        backgroundColor: backgroundLight,
+        backgroundColor: Theme.of(context).colorScheme.background,
         automaticallyImplyLeading: false,
         elevation: 0,
-        title: Row(children: [
-          IconButton(
+        title: Row(
+          children: [
+            IconButton(
               onPressed: (() => Navigator.of(context).pop()),
-              icon: SvgPicture.asset('assets/svgs/back-icon.svg')),
-          const SizedBox(
-            width: 24,
-          ),
-          Text(
-            surah.namaLatin,
-            style: primaryTextStyle.copyWith(
-              fontSize: 26,
-              fontWeight: bold,
+              icon: SvgPicture.asset(
+                'assets/svgs/back-icon.svg',
+              ),
             ),
-          ),
-          const Spacer(),
-          IconButton(
+            const SizedBox(
+              width: 24,
+            ),
+            Text(
+              surah.namaLatin,
+              style: primaryTextStyle.copyWith(
+                fontSize: 26,
+                fontWeight: bold,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ),
+            const Spacer(),
+            IconButton(
               onPressed: (() => {}),
-              icon: SvgPicture.asset('assets/svgs/search-icon.svg')),
-        ]),
+              icon: SvgPicture.asset(
+                'assets/svgs/search-icon.svg',
+              ),
+            ),
+          ],
+        ),
       );
 }
