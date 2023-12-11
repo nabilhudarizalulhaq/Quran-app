@@ -57,16 +57,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      // home: const SplashPage(),
       routes: {
         '/': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
-        // '/surah':(context) => const SurahTabPage(),
-        // '/login': (context) => const SignInPage(),
-        // '/sign_up': (context) => const SignUpPage(),
-        // '/home': (context) => const HomePage(),
-        // '/profile': (context) => const ProfilePage(),
-        // '/setting': (context) => const SettingPage(),
       },
     );
   }
